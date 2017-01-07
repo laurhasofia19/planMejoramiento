@@ -83,8 +83,8 @@ public class ClienteManagedBean {
         }
     }
 
-    public void leer(Cliente leercliente) {
-        cliente = leercliente;
+    public void leer(Cliente leer) {
+        cliente = leer;
         
       
     }

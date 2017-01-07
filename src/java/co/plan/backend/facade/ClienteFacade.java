@@ -6,9 +6,11 @@
 package co.plan.backend.facade;
 
 import co.plan.backend.entities.Cliente;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,21 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public ClienteFacade() {
         super(Cliente.class);
     }
-    
+
+    public Cliente iniciarSesion(Cliente clien) {
+        Cliente cliente = null;
+        String consulta;
+        try {
+            consulta = " FROM Cliente c WHERE c.nombre=?1";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, clien.getNombre());
+            List<Cliente> lista = query.getResultList();
+            if (!lista.isEmpty()) {
+                cliente = lista.get(0);
+            }
+        } catch (Exception e) {
+            throw e;
+        } 
+        return cliente;
+    }
 }
