@@ -8,6 +8,32 @@
         <title>Clientes</title>
     </h:head>
     <h:body>
+          <h:form>  
+    <p:growl id="messages"/>
+ 
+    <p:menubar>
+        <p:submenu label="Clientes" icon="ui-icon-check">
+            <p:menuitem value="Lista Clientes" outcome="Clientes" />
+            <p:separator />
+            <p:menuitem value="Crear Cliente" outcome="crearCliente"/>
+          </p:submenu>
+        
+           <p:submenu label="Concesionarios" icon="ui-icon-car">
+            <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
+            <p:separator />
+            <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
+          </p:submenu>
+        
+        
+        
+     <f:facet name="options">
+           
+         <p:commandButton actionListener="#{loginContolador.cerrarSesion()}" value="Salir" action="/index?faces-redirect" icon="ui-icon-exit" />
+        </f:facet>
+ 
+    </p:menubar>
+        </h:form>   
+        
         <f:view>
             <h:form>
                 <h1><h:outputText value="CLIENTES"/></h1>

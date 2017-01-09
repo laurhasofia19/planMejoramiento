@@ -5,11 +5,11 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Crear cliente</title>
+        <title>Facelet Title</title>
     </h:head>
     <h:body>
         
-          <h:form>  
+            <h:form>  
     <p:growl id="messages"/>
  
     <p:menubar>
@@ -19,12 +19,11 @@
             <p:menuitem value="Crear Cliente" outcome="crearCliente"/>
           </p:submenu>
         
-           <p:submenu label="Concesionarios" icon="ui-icon-car">
+        <p:submenu label="Concesionarios" icon="ui-icon-car">
             <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
             <p:separator />
             <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
           </p:submenu>
-        
         
         
      <f:facet name="options">
@@ -33,26 +32,23 @@
         </f:facet>
  
     </p:menubar>
-        </h:form>   
+        </h:form>  
         <f:view>
 
 
             <h:form>
-                <h1><h:outputText value="Crear cliente"/></h1>
+                <h1><h:outputText value="Crear Concesionario"/></h1>
                 <h:panelGrid columns="2">
-                    
+                    <p:outputLabel value="Nit:" for="nit" />
+                    <p:inputText id="nit" value="#{concesionarioManagedBean.concesionario.nit}" title="Nit" required="true" requiredMessage="The Nit field is required."/>
                     <p:outputLabel value="Nombre:" for="nombre" />
-                    <p:inputText id="nombre" value="#{clienteManagedBean.cliente.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
-                  
-                    <p:outputLabel value="Telefono:" for="telefono" />
-                    <p:inputText id="telefono" value="#{clienteManagedBean.cliente.telefono}" title="Telefono" />
-                    
+                    <p:inputText id="nombre" value="#{concesionarioManagedBean.concesionario.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
+                    <p:outputLabel value="Tel:" for="tel" />
+                    <p:inputText id="tel" value="#{concesionarioManagedBean.concesionario.tel}" title="Tel" />
                     <p:outputLabel value="Direccion:" for="direccion" />
-                    <p:inputText id="direccion" value="#{clienteManagedBean.cliente.direccion}" title="Direccion" />
-                   
+                    <p:inputText id="direccion" value="#{concesionarioManagedBean.concesionario.direccion}" title="Direccion" />
+                    <p:commandButton id="crear" value="Registrar" actionListener="#{concesionarioManagedBean.registrarConcesionario()}"/>
                 </h:panelGrid>
-                
-                <p:commandButton id="crear" value="crear" actionListener="#{clienteManagedBean.registrarCliente()}"/>
             </h:form>
         </f:view>
 
