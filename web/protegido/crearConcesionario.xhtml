@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Crear Concesionario</title>
     </h:head>
     <h:body>
         
@@ -25,6 +25,11 @@
             <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
           </p:submenu>
         
+         <p:submenu label="Vehiculos" icon="ui-icon-car">
+            <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
+            <p:separator />
+            <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
+          </p:submenu>
         
      <f:facet name="options">
            
@@ -35,9 +40,10 @@
         </h:form>  
         <f:view>
 
-
+            <center>
             <h:form>
                 <h1><h:outputText value="Crear Concesionario"/></h1>
+                <br></br>
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Nit:" for="nit" />
                     <p:inputText id="nit" value="#{concesionarioManagedBean.concesionario.nit}" title="Nit" required="true" requiredMessage="The Nit field is required."/>
@@ -47,9 +53,12 @@
                     <p:inputText id="tel" value="#{concesionarioManagedBean.concesionario.tel}" title="Tel" />
                     <p:outputLabel value="Direccion:" for="direccion" />
                     <p:inputText id="direccion" value="#{concesionarioManagedBean.concesionario.direccion}" title="Direccion" />
-                    <p:commandButton id="crear" value="Registrar" actionListener="#{concesionarioManagedBean.registrarConcesionario()}"/>
+                    
                 </h:panelGrid>
+                <br></br>
+                <p:commandButton id="crear" value="Registrar" actionListener="#{concesionarioManagedBean.registrarConcesionario()}"/>
             </h:form>
+            </center>
         </f:view>
 
     </h:body>

@@ -5,11 +5,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Crear cliente</title>
+        <title>Crear Vehiculo</title>
     </h:head>
     <h:body>
-        
-          <h:form>  
+        <f:view>
+
+             <h:form>  
     <p:growl id="messages"/>
  
     <p:menubar>
@@ -25,13 +26,11 @@
             <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
           </p:submenu>
         
-         <p:submenu label="Vehiculos" icon="ui-icon-car">
+          <p:submenu label="Vehiculos" icon="ui-icon-car">
             <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
             <p:separator />
             <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
           </p:submenu>
-        
-        
         
      <f:facet name="options">
            
@@ -40,28 +39,34 @@
  
     </p:menubar>
         </h:form>   
-        <f:view>
-            <center>
+           
 
             <h:form>
-                <h1><h:outputText value="Crear cliente"/></h1>
+                  <center>
+                <h1><h:outputText value="Registrar Vehiculo"/></h1>
+                <br></br>
+              
                 <h:panelGrid columns="2">
                     
-                    <p:outputLabel value="Nombre:" for="nombre" />
-                    <p:inputText id="nombre" value="#{clienteManagedBean.cliente.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
-                  
-                    <p:outputLabel value="Telefono:" for="telefono" />
-                    <p:inputText id="telefono" value="#{clienteManagedBean.cliente.telefono}" title="Telefono" />
+                    <p:outputLabel value="Marca:" for="marca" />
+                    <p:inputText id="marca" value="#{vehiculoManagedBean.vehiculo.marca}" title="Marca" required="true" requiredMessage="The Marca field is required."/>
+                    <p:outputLabel value="Modelo:" for="modelo" />
+                    <p:inputText id="modelo" value="#{vehiculoManagedBean.vehiculo.modelo}" title="Modelo" required="true" requiredMessage="The Modelo field is required."/>
+                    <p:outputLabel value="Precio:" for="precio" />
+                    <p:inputText id="precio" value="#{vehiculoManagedBean.vehiculo.precio}" title="Precio" />
+                    <p:outputLabel value="Nit Concesionario:" for="codConcesionario" />
+                    <h:selectOneMenu id="codConcesionario" class="form-control col-xs-8"
+                                     value="#{vehiculoManagedBean.vehiculo.codConcesionario}" >
+                        
+                        <f:selectItems value="#{controladorConcesionario.all}" var="tipo" itemLabel="#{tipo.nombre}"/>
+                    </h:selectOneMenu>
                     
-                    <p:outputLabel value="Direccion:" for="direccion" />
-                    <p:inputText id="direccion" value="#{clienteManagedBean.cliente.direccion}" title="Direccion" />
-                   
+                    
                 </h:panelGrid>
-                
                 <br></br>
-                <p:commandButton id="crear" value="crear" actionListener="#{clienteManagedBean.registrarCliente()}"/>
+                    <p:commandButton id="crear" value="Registrar" actionListener="#{vehiculoManagedBean.registrarVehiculo()}"/>
+                </center>
             </h:form>
-            </center>
         </f:view>
 
     </h:body>
