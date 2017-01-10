@@ -1,104 +1,89 @@
-                                        
-package co.plan.backend.controller.Concesionario;
+package co.plan.backend.controller.Ventas;
 
-
-import co.plan.backend.entities.Concesionario;
-import co.plan.backend.facade.ConcesionarioFacade;
-import javax.inject.Named;
-
-import java.io.Serializable;
+import co.plan.backend.entities.Ventas;
+import co.plan.backend.facade.VentasFacade;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 
-
-@Named(value = "concesionarioManagedBean")
+@Named(value = "ventaManagedBean")
 @RequestScoped
-public class ConcesionarioManagedBean implements Serializable {
+public class VentaManagedBean {
 
-     @EJB
-    private ConcesionarioFacade concesionarioEJB;
-    
-    private Concesionario concesionario;
-    
-  
-    public ConcesionarioManagedBean() {
+    @EJB
+    private VentasFacade ventasEjb;
+
+    private Ventas venta;
+
+    public VentaManagedBean() {
     }
 
-    public Concesionario getConcesionario() {
-        return concesionario;
+    public Ventas getVenta() {
+        return venta;
     }
 
-    public void setConcesionario(Concesionario concesionario) {
-        this.concesionario = concesionario;
+    public void setVenta(Ventas venta) {
+        this.venta = venta;
     }
-    
-     @PostConstruct
-    public void init(){
-    concesionario = new Concesionario();
-    }
-    
 
-    
+    @PostConstruct
+    public void init() {
+        venta = new Ventas();
+    }
+
     //************************************************************************************
-
-    public void registrarConcesionario() {
+    public void crearVenta() {
         try {
-            concesionarioEJB.create(concesionario);
+            ventasEjb.create(venta);
             manejarExito("Crear");
         } catch (Exception e) {
             manejarError(e);
         }
+
     }
 
     public String registrar() {
         return "";
     }
 
-    public List<Concesionario> getConcesionarios() {
+    public List<Ventas> getVentas() {
         try {
-            return this.concesionarioEJB.findAll();
+            return this.ventasEjb.findAll();
+
         } catch (Exception e) {
             manejarError(e);
         }
         return null;
     }
 
-    public void eliminarConcesionario(Concesionario c) {
+    public void eliminar(Ventas v) {
         try {
-            concesionarioEJB.remove(c);
+            ventasEjb.remove(v);
             manejarExito("eliminado");
         } catch (Exception e) {
             manejarError(e);
         }
     }
-
-    public void leer(Concesionario leer) {
-        concesionario = leer;
-        
-      
-    }
-
-    public void modificar() {
-        
-         try {
-          concesionarioEJB.edit(concesionario);
-            manejarExito("Editado");
-        } catch (Exception e) {
-            manejarError(e);
-        }     
-        
+    
+    public void leer (Ventas leer){
+        venta= leer;
     }
     
+    public void modificar(){
+        try{
+            ventasEjb.edit(venta);
+            manejarExito("Editado");
+        }catch(Exception e){
+            manejarError(e);
+        }
+    }
 
     //******************************************************************************************
-
-
- 
     private void
             manejarError(Exception e) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -122,6 +107,4 @@ public class ConcesionarioManagedBean implements Serializable {
         RequestContext.getCurrentInstance().showMessageInDialog(sal);
 
     }
-    
-    
 }

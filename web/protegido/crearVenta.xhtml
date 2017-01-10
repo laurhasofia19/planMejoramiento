@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Crear Venta</title>
+    </h:head>
+    <h:body>
+        <f:view>
+
+            <h:form>  
+                <p:growl id="messages"/>
+
+                <p:menubar>
+                    <p:submenu label="Clientes" icon="ui-icon-check">
+                        <p:menuitem value="Lista Clientes" outcome="Clientes" />
+                        <p:separator />
+                        <p:menuitem value="Crear Cliente" outcome="crearCliente"/>
+                    </p:submenu>
+
+                    <p:submenu label="Concesionarios" icon="ui-icon-car">
+                        <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
+                        <p:separator />
+                        <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
+                    </p:submenu>
+
+                    <p:submenu label="Vehiculos" icon="ui-icon-car">
+                        <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
+                        <p:separator />
+                        <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
+                    </p:submenu>
+
+                    <p:submenu label="Ventas" icon="ui-icon-car">
+                        <p:menuitem value="Lista Ventas" outcome="Ventas" />
+                        <p:separator />
+                        <p:menuitem value="Crear Venta" outcome="crearVenta"/>
+                    </p:submenu>
+
+                    <f:facet name="options">
+
+                        <p:commandButton actionListener="#{loginContolador.cerrarSesion()}" value="Salir" action="/index?faces-redirect" icon="ui-icon-exit" />
+                    </f:facet>
+
+                </p:menubar>
+            </h:form>   
+
+            <center>
+
+                <h:form>
+                    <h1><h:outputText value="Crear Venta"/></h1>
+                    <br></br>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Cliente:" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" class="form-control col-xs-8"
+                                         value="#{ventaManagedBean.venta.idCliente}" >
+                            <f:selectItems value="#{controladorCliente.all}" var="tipo" itemLabel="#{tipo.nombre}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Vehiculo:"  />
+                        <p:selectOneMenu id="idVehiculo" class="form-control col-xs-8"
+                                         value="#{ventaManagedBean.venta.idVehiculo}" >
+                            <f:selectItems value="#{controladorVehiculo.all}" var="tipo" itemLabel="#{tipo.marca}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputLabel for="fecha" value="Fecha venta:" />
+                        <p:calendar id="restricted" value="#{ventaManagedBean.venta.fecha}" mindate="10/1/17" maxdate="10/1/18" />
+
+                    </h:panelGrid>
+
+                    <br></br>
+                    <p:commandButton value="registrar" actionListener="#{ventaManagedBean.crearVenta()}"/>
+                </h:form>
+                </center>
+        </f:view>
+
+
+            
+    </h:body>
+</html>
+

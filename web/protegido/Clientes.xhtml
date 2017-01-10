@@ -24,8 +24,19 @@
             <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
           </p:submenu>
         
+          
         
+          <p:submenu label="Vehiculos" icon="ui-icon-car">
+            <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
+            <p:separator />
+            <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
+          </p:submenu>
         
+         <p:submenu label="Ventas" icon="ui-icon-car">
+            <p:menuitem value="Lista Ventas" outcome="Ventas" />
+            <p:separator />
+            <p:menuitem value="Crear Venta" outcome="crearVenta"/>
+          </p:submenu>
      <f:facet name="options">
            
          <p:commandButton actionListener="#{loginContolador.cerrarSesion()}" value="Salir" action="/index?faces-redirect" icon="ui-icon-exit" />

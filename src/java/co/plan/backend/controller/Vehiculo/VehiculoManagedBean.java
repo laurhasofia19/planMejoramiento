@@ -78,7 +78,7 @@ public class VehiculoManagedBean {
       
     }
 
-    public void modificar() {
+    public void modificarVehiculo() {
         
          try {
           vehiculoEJB.edit(vehiculo);

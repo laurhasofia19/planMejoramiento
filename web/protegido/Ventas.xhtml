@@ -1,12 +1,138 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Ventas</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form>  
+            <p:growl id="messages"/>
+
+            <p:menubar>
+                <p:submenu label="Clientes" icon="ui-icon-check">
+                    <p:menuitem value="Lista Clientes" outcome="Clientes" />
+                    <p:separator />
+                    <p:menuitem value="Crear Cliente" outcome="crearCliente"/>
+                </p:submenu>
+
+                <p:submenu label="Concesionarios" icon="ui-icon-car">
+                    <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
+                    <p:separator />
+                    <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
+                </p:submenu>
+
+                <p:submenu label="Vehiculos" icon="ui-icon-car">
+                    <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
+                    <p:separator />
+                    <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
+                </p:submenu>
+
+                <p:submenu label="Ventas" icon="ui-icon-car">
+                    <p:menuitem value="Lista Ventas" outcome="Ventas" />
+                    <p:separator />
+                    <p:menuitem value="Crear Venta" outcome="crearVenta"/>
+                </p:submenu>
+
+
+
+                <f:facet name="options">
+
+                    <p:commandButton actionListener="#{loginContolador.cerrarSesion()}" value="Salir" action="/index?faces-redirect" icon="ui-icon-exit" />
+                </f:facet>
+
+            </p:menubar>
+        </h:form>   
+
+        <f:view>
+
+
+            <h:form>
+                <h1><h:outputText value="Lista Ventas"/></h1>
+                <p:dataTable value="#{ventaManagedBean.ventas}" var="item" id="tbl" emptyMessage="No se encontraron registros"
+                             paginator="true" rows="5" paginatorPosition="bottom"
+                             paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                    <p:column headerText="Código Venta" id="id" filterBy="#{item.idVenta}fi" filterMatchMode="contains">
+                        <center>
+                        <h:outputText value="#{item.idVenta}"/>
+                        </center>
+                    </p:column>
+
+                    <p:column headerText=" Vehiculo" id="vehiculo">
+                        <center>
+                        <h:outputText value="#{item.idVehiculo.marca}"/>
+                        </center>
+                    </p:column>
+                    
+                    <p:column headerText="Cliente" id="cliente" filterBy="#{item.idCliente}fi" filterMatchMode="contains">
+                        
+                        <h:outputText value="#{item.idCliente.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha">
+                        <center>
+                        <h:outputText value="#{item.fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        </center>
+                    </p:column>
+                    
+                    
+                     <p:column  exportable="false" width="10%">
+                        <center>
+                            <p:commandButton  styleClass="ui-confirmdialog-no" icon="ui-icon-trash" action="#{ventaManagedBean.eliminar(item)}"   update="tbl" />                                     
+                        </center>
+                    </p:column>
+                    <p:column  width="10%">
+                        <center>
+                            <p:commandButton styleClass="ui-confirmdialog-no" icon=" ui-icon-pencil" actionListener="#{ventaManagedBean.leer(leer)}"  oncomplete="PF('wdialogo2').show();s"/>  
+
+                        </center>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+            
+              <p:dialog id="re" widgetVar="wdialogo2" header="Modificar Vehiculo" modal="true"  resizable="false" closeOnEscape="true" draggable="false">
+
+             <center>
+
+                <h:form>
+                    <h1><h:outputText value="Crear Venta"/></h1>
+                    <br></br>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Cliente:" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" class="form-control col-xs-8"
+                                         value="#{ventaManagedBean.venta.idCliente}" >
+                            <f:selectItems value="#{controladorCliente.all}" var="tipo" itemLabel="#{tipo.nombre}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Vehiculo:"  />
+                        <p:selectOneMenu id="idVehiculo" class="form-control col-xs-8"
+                                         value="#{ventaManagedBean.venta.idVehiculo}" >
+                            <f:selectItems value="#{controladorVehiculo.all}" var="tipo" itemLabel="#{tipo.marca}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputLabel for="fecha" value="Fecha venta:" />
+                        <p:calendar id="restricted" value="#{ventaManagedBean.venta.fecha}" mindate="10/1/17" maxdate="10/1/18" />
+
+                    </h:panelGrid>
+
+                    <br></br>
+                    <p:commandButton value="Modificar" actionListener="#{ventaManagedBean.modificar()}"/>
+                </h:form>
+                </center>
+                  
+              </p:dialog>
+            
+            
+        </f:view>
+
+
+
     </h:body>
 </html>
 
