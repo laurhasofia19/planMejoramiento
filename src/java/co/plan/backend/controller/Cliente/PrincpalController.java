@@ -1,6 +1,6 @@
 
 
-package co.plan.backend.controller;
+package co.plan.backend.controller.Cliente;
 
 
 

@@ -1,60 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package co.plan.backend.controller;
 
-import co.plan.backend.entities.Cliente;
-import co.plan.backend.facade.ClienteFacade;
+package co.plan.backend.controller.Concesionario;
+
+import co.plan.backend.entities.Concesionario;
+import co.plan.backend.entities.Concesionario;
+import co.plan.backend.facade.ConcesionarioFacade;
+import javax.inject.Named;
+
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
 
-/**
- *
- * @author USUARIO
- */
-@Named(value = "clienteManagedBean")
-@RequestScoped 
-public class ClienteManagedBean {
-
+@Named(value = "concesionarioManagedBean")
+@RequestScoped
+public class ConcesionarioManagedBean implements Serializable {
 
      @EJB
-    private ClienteFacade clienteEJB;
+    private ConcesionarioFacade concesionarioEJB;
     
-    private Cliente cliente;
+    private Concesionario concesionario;
     
-    
- public ClienteManagedBean() {
-    }
-    public Cliente getCliente() {
-        return cliente;
+  
+    public ConcesionarioManagedBean() {
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public Concesionario getConcesionario() {
+        return concesionario;
+    }
+
+    public void setConcesionario(Concesionario concesionario) {
+        this.concesionario = concesionario;
     }
     
-    @PostConstruct
+     @PostConstruct
     public void init(){
-    cliente = new Cliente();
+    concesionario = new Concesionario();
     }
     
 
     
     //************************************************************************************
 
-    public void registrarCliente() {
+    public void registrarConcesionario() {
         try {
-            clienteEJB.create(cliente);
+            concesionarioEJB.create(concesionario);
             manejarExito("Crear");
         } catch (Exception e) {
             manejarError(e);
@@ -65,26 +59,26 @@ public class ClienteManagedBean {
         return "";
     }
 
-    public List<Cliente> getClientes() {
+    public List<Concesionario> getConcesionarios() {
         try {
-            return this.clienteEJB.findAll();
+            return this.concesionarioEJB.findAll();
         } catch (Exception e) {
             manejarError(e);
         }
         return null;
     }
 
-    public void eliminarCliente(Cliente c) {
+    public void eliminarConcesionario(Concesionario c) {
         try {
-            clienteEJB.remove(c);
+            concesionarioEJB.remove(c);
             manejarExito("eliminado");
         } catch (Exception e) {
             manejarError(e);
         }
     }
 
-    public void leer(Cliente leer) {
-        cliente = leer;
+    public void leer(Concesionario leer) {
+        concesionario = leer;
         
       
     }
@@ -92,7 +86,7 @@ public class ClienteManagedBean {
     public void modificar() {
         
          try {
-          clienteEJB.edit(cliente);
+          concesionarioEJB.edit(concesionario);
             manejarExito("Editado");
         } catch (Exception e) {
             manejarError(e);
@@ -128,4 +122,6 @@ public class ClienteManagedBean {
         RequestContext.getCurrentInstance().showMessageInDialog(sal);
 
     }
+    
+    
 }

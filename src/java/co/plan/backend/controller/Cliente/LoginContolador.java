@@ -1,5 +1,5 @@
 
-package co.plan.backend.controller;
+package co.plan.backend.controller.Cliente;
 
 import co.plan.backend.entities.Cliente;
 import co.plan.backend.facade.ClienteFacade;
