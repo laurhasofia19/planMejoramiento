@@ -1,8 +1,5 @@
 package co.plan.backend.controller.Ventas;
 
-
-
-
 import co.plan.backend.entities.Cliente;
 import co.plan.backend.facade.ClienteFacade;
 import java.io.Serializable;
@@ -14,7 +11,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.SelectItem;
+
 import javax.faces.view.ViewScoped;
 //import com.util.JsfUtil;
 
@@ -24,22 +21,22 @@ import javax.faces.view.ViewScoped;
  */
 @ManagedBean(name = "controladorCliente")
 @ViewScoped
-public class ControladorCliente implements Serializable{
+public class ControladoCliente implements Serializable{
 
     /**
      * Creates a new instance of ContconcesionarioadorCliente
      */
-    public ControladorCliente() {
+    public ControladoCliente() {
     }
     
-    private Cliente cliente;
+    private Cliente clientes;
     
     @EJB
     private ClienteFacade facadeCliente;
     
     @PostConstruct
     public void init(){
-       cliente = new Cliente();
+       clientes = new Cliente();
     }
     
     public List<Cliente> getAll(){
@@ -50,11 +47,11 @@ public class ControladorCliente implements Serializable{
     
     
      public Cliente getSelected() {
-       if (cliente == null) {
-           cliente = new Cliente();
+       if (clientes == null) {
+           clientes = new Cliente();
            int selectedItemIndex = -1;
        }
-       return cliente;
+       return clientes;
    }
      
   // public SelectItem[] getItemsAvailableSelectOne() {
@@ -72,7 +69,7 @@ public class ControladorCliente implements Serializable{
            if (value == null || value.length() == 0) {
                return null;
            }
-           ControladorCliente controlador = (ControladorCliente) facesContext.getApplication().getELResolver().
+           ControladoCliente controlador = (ControladoCliente) facesContext.getApplication().getELResolver().
                    getValue(facesContext.getELContext(), null, "controladorCliente");
            return controlador.getCliente(getKey(value));
            
@@ -105,16 +102,15 @@ public class ControladorCliente implements Serializable{
 
    }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Cliente getClientes() {
+        return clientes;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setClientes(Cliente clientes) {
+        this.clientes = clientes;
     }
 
-  
-
+   
   
     
 }

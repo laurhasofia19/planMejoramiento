@@ -8,7 +8,6 @@
         <title>Vehiculo</title>
     </h:head>
     <h:body>
-
         <h:form>  
             <p:growl id="messages"/>
 
@@ -20,22 +19,23 @@
                 </p:submenu>
 
                 <p:submenu label="Concesionarios" icon="ui-icon-car">
-                    <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
-                    <p:separator />
-                    <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
-                </p:submenu>
+            <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
+            <p:separator />
+            <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
+          </p:submenu>
+        
+          <p:submenu label="Vehiculos" icon="ui-icon-car">
+            <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
+            <p:separator />
+            <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
+          </p:submenu>
 
-                <p:submenu label="Vehiculos" icon="ui-icon-car">
-                    <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
-                    <p:separator />
-                    <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
-                </p:submenu>
+                 <p:submenu label="Ventas" icon="ui-icon-car">
+            <p:menuitem value="Lista Ventas" outcome="Ventas" />
+            <p:separator />
+            <p:menuitem value="Crear Venta" outcome="crearVenta"/>
+          </p:submenu>
 
-                <p:submenu label="Ventas" icon="ui-icon-car">
-                    <p:menuitem value="Lista Ventas" outcome="Ventas" />
-                    <p:separator />
-                    <p:menuitem value="Crear Venta" outcome="crearVenta"/>
-                </p:submenu>
 
                 <f:facet name="options">
 
@@ -43,94 +43,85 @@
                 </f:facet>
 
             </p:menubar>
-        </h:form>  
+        </h:form>   
+   
         <f:view>
 
-
             <h:form>
-                <h1><h:outputText value="VEHICULO"/></h1>
-                <p:dataTable value="#{vehiculoManagedBean.vehiculos}" var="item" id="tbl1" emptyMessage="No se encontraron registros"
+                <h1><h:outputText value="List"/></h1>
+                <p:dataTable value="#{vehiculoManagedBean.vehiculos}" var="item" id="vehiculo" 
+                              emptyMessage="No se encontraron registros"
                              paginator="true" rows="5" paginatorPosition="bottom"
                              paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-
-                    <p:column headerText="Código Vehiculo" id="id" filterBy="#{item.idvehiculo}fi" filterMatchMode="contains">
-                        <center> 
-                            <h:outputText value="#{item.idvehiculo}"/>
+                    <p:column headerText="Codigo " id="id" filterBy="#{item.idvehiculo}fi" filterMatchMode="contains">
+                        <center>
+                        <h:outputText value="#{item.idvehiculo}"/>
                         </center>
                     </p:column>
 
                     <p:column headerText="Marca" id="marca" filterBy="#{item.marca}fi" filterMatchMode="contains">
-                        <center>
-                            <h:outputText value="#{item.marca}"/>
-                        </center>
+                        <h:outputText value="#{item.marca}"/>
                     </p:column>
 
                     <p:column headerText="Modelo" id="modelo" filterBy="#{item.modelo}fi" filterMatchMode="contains">
+                        <h:outputText value="#{item.modelo}"/>
+                    </p:column>
+
+                    <p:column headerText="Precio" id="precio" filterBy="#{item.precio}fi" filterMatchMode="contains">
                         <center>
-                            <h:outputText value="#{item.modelo}"/>
+                        <h:outputText value="#{item.precio}"/>
+                      
                         </center>
                     </p:column>
 
-                    <p:column headerText="Precio" id="precio" >
-                        <center>
-                            <h:outputText value="#{item.precio}"/>
-                        </center>
-                    </p:column>
-
-                    <p:column headerText="Concesionario" id="concesionario" filterBy="#{item.codConcesionario}fi" filterMatchMode="contains">
-
+                    <p:column headerText="concesionario" id="nit" filterBy="#{item.codConcesionario.nombre}fi" filterMatchMode="contains">
                         <h:outputText value="#{item.codConcesionario.nombre}"/>
                     </p:column>
-
+                    
                     <p:column  exportable="false" width="10%">
                         <center>
-                            <p:commandButton  styleClass="ui-confirmdialog-no" icon="ui-icon-trash" action="#{vehiculoManagedBean.eliminarVehiculo(item)}"   update="tbl1" />                                     
+                            <p:commandButton  styleClass="ui-confirmdialog-no" 
+                                              icon="ui-icon-trash" action="#{vehiculoManagedBean.eliminarVehiculo(item)}"  update="vehiculo" />  
                         </center>
-                    </p:column>
-                    <p:column  width="10%">
+                    </p:column >
+                    <p:column exportable="false" width="10%">
                         <center>
-                            <p:commandButton styleClass="ui-confirmdialog-no" icon=" ui-icon-pencil" actionListener="#{vehiculoManagedBean.leer(leer)}"  oncomplete="PF('wdialogo2').show();s"/>  
-
+                            <p:commandButton styleClass="ui-confirmdialog-no" 
+                                             icon=" ui-icon-pencil"  
+                                             update="vehiculo"  actionListener="#{vehiculoManagedBean.leer(item)}" oncomplete="PF('wdialogo').show();" id="modificar" />    
                         </center>
                     </p:column>
-
-
-
+                    
                 </p:dataTable>
+                
             </h:form>
+            
+             <p:dialog id="vehiculo" widgetVar="wdialogo" header="Modificar vehiculo" modal="true"  resizable="false" closeOnEscape="true" draggable="false">
+                 <h:form>
+                   
+                    <h:panelGrid columns="2">
 
-            <p:dialog id="re" widgetVar="wdialogo2" header="Modificar Vehiculo" modal="true"  resizable="false" closeOnEscape="true" draggable="false">
+                        <p:outputLabel value="Marca:" for="marca" />
+                        <p:inputText id="marca" value="#{vehiculoManagedBean.vehiculo.marca}" title="Marca" required="true" requiredMessage="The Marca field is required."/>
+                        <p:outputLabel value="Modelo:" for="modelo" />
+                        <p:inputText id="modelo" value="#{vehiculoManagedBean.vehiculo.modelo}" title="Modelo" required="true" requiredMessage="The Modelo field is required."/>
+                        <p:outputLabel value="Precio:" for="precio" />
+                        <p:inputText id="precio" value="#{vehiculoManagedBean.vehiculo.precio}" title="Precio" />
+                        <p:outputLabel value="CodConcesionario:"  />
+                        <h:selectOneMenu id="concesionario" class="form-control col-xs-8"
+                                         value="#{vehiculoManagedBean.vehiculo.codConcesionario}" >
 
-                <h:form>
-                    <center>
-                        <h1><h:outputText value="Modificar Vehiculo"/></h1>
-                        <br></br>
-
-                        <h:panelGrid columns="2">
-
-                            <p:outputLabel value="Marca:" for="marca" />
-                            <p:inputText id="marca" value="#{vehiculoManagedBean.vehiculo.marca}" title="Marca" required="true" requiredMessage="The Marca field is required."/>
-                            <p:outputLabel value="Modelo:" for="modelo" />
-                            <p:inputText id="modelo" value="#{vehiculoManagedBean.vehiculo.modelo}" title="Modelo" required="true" requiredMessage="The Modelo field is required."/>
-                            <p:outputLabel value="Precio:" for="precio" />
-                            <p:inputText id="precio" value="#{vehiculoManagedBean.vehiculo.precio}" title="Precio" />
-                            <p:outputLabel value="Nit Concesionario:" for="codConcesionario" />
-                            <h:selectOneMenu id="codConcesionario" class="form-control col-xs-8"
-                                             value="#{vehiculoManagedBean.vehiculo.codConcesionario}" >
-
-                                <f:selectItems value="#{controladorConcesionario.all}" var="tipo" itemLabel="#{tipo.nombre}"/>
-                            </h:selectOneMenu>
-
-
-                        </h:panelGrid>
-                        <br></br>
-                        <p:commandButton id="modificar" value="Modificar" actionListener="#{vehiculoManagedBean.modificarVehiculo()}"/>
-                    </center>
+                            <f:selectItems value="#{controladorConcesionario.all}" var="tipo2" itemLabel="#{tipo2.nombre}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <br></br>
+                    <p:commandButton id="modificar" value="Modificar" actionListener="#{vehiculoManagedBean.modificarV()}"/>
                 </h:form>
-
-
-
-            </p:dialog>
+           
+                 
+                 
+                 
+             </p:dialog>
         </f:view>
 
     </h:body>

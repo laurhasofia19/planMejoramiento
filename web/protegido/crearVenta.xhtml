@@ -9,74 +9,79 @@
     </h:head>
     <h:body>
         <f:view>
+     <h:form>  
+        <p:growl id="messages"/>
 
-            <h:form>  
-                <p:growl id="messages"/>
+        <p:menubar>
+            <p:submenu label="Clientes" icon="ui-icon-check">
+                <p:menuitem value="Lista Clientes" outcome="Clientes" />
+                <p:separator />
+                <p:menuitem value="Crear Cliente" outcome="crearCliente"/>
+            </p:submenu>
 
-                <p:menubar>
-                    <p:submenu label="Clientes" icon="ui-icon-check">
-                        <p:menuitem value="Lista Clientes" outcome="Clientes" />
-                        <p:separator />
-                        <p:menuitem value="Crear Cliente" outcome="crearCliente"/>
-                    </p:submenu>
+            <p:submenu label="Concesionarios" icon="ui-icon-car">
+                <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
+                <p:separator />
+                <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
+            </p:submenu>
 
-                    <p:submenu label="Concesionarios" icon="ui-icon-car">
-                        <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
-                        <p:separator />
-                        <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
-                    </p:submenu>
+            <p:submenu label="Vehiculos" icon="ui-icon-car">
+                <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
+                <p:separator />
+                <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
+            </p:submenu>
 
-                    <p:submenu label="Vehiculos" icon="ui-icon-car">
-                        <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
-                        <p:separator />
-                        <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
-                    </p:submenu>
+            <p:submenu label="Ventas" icon="ui-icon-car">
+                <p:menuitem value="Lista Ventas" outcome="Ventas" />
+                <p:separator />
+                <p:menuitem value="Crear Venta" outcome="crearVenta"/>
+            </p:submenu>
 
-                    <p:submenu label="Ventas" icon="ui-icon-car">
-                        <p:menuitem value="Lista Ventas" outcome="Ventas" />
-                        <p:separator />
-                        <p:menuitem value="Crear Venta" outcome="crearVenta"/>
-                    </p:submenu>
 
-                    <f:facet name="options">
 
-                        <p:commandButton actionListener="#{loginContolador.cerrarSesion()}" value="Salir" action="/index?faces-redirect" icon="ui-icon-exit" />
-                    </f:facet>
+            <f:facet name="options">
 
-                </p:menubar>
-            </h:form>   
+                <p:commandButton actionListener="#{loginContolador.cerrarSesion()}" value="Salir" action="/index?faces-redirect" icon="ui-icon-exit" />
+            </f:facet>
+
+        </p:menubar>
+        </h:form>   
 
             <center>
-
-                <h:form>
-                    <h1><h:outputText value="Crear Venta"/></h1>
+            <h:form>
+                <h1><h:outputText value="Registrar Venta"/></h1>
+                <br></br>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="IdCliente:" for="idCliente" />
+                    <p:selectOneMenu id="idCliente" class="form-control col-xs-8"
+                                     value="#{ventaManagedBean.ventas.idCliente}" >
+                        
+                        <f:selectItems value="#{controladorCliente.all}" var="tipo2" itemLabel="#{tipo2.nombre}"/>
+                    </p:selectOneMenu>
+                    
+                      <p:outputLabel value="IdVehiculo:" for="idVehiculo" />
+                    <p:selectOneMenu id="idVehiculo" class="form-control col-xs-8"
+                                     value="#{ventaManagedBean.ventas.idVehiculo}" >
+                        <f:selectItems value="#{controladorVehiculo.all}" var="tipo" itemLabel="#{tipo.marca}"/>
+                       
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="Fecha:" for="fecha" />
+                    <p:calendar id="fecha" value="#{ventaManagedBean.ventas.fecha}" mindate="19/1/17" maxdate="19/1/18" />
+                     </h:panelGrid>
                     <br></br>
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="Cliente:" for="idCliente" />
-                        <p:selectOneMenu id="idCliente" class="form-control col-xs-8"
-                                         value="#{ventaManagedBean.venta.idCliente}" >
-                            <f:selectItems value="#{controladorCliente.all}" var="tipo" itemLabel="#{tipo.nombre}"/>
-                        </p:selectOneMenu>
-
-                        <p:outputLabel value="Vehiculo:"  />
-                        <p:selectOneMenu id="idVehiculo" class="form-control col-xs-8"
-                                         value="#{ventaManagedBean.venta.idVehiculo}" >
-                            <f:selectItems value="#{controladorVehiculo.all}" var="tipo" itemLabel="#{tipo.marca}"/>
-                        </p:selectOneMenu>
-
-                        <h:outputLabel for="fecha" value="Fecha venta:" />
-                        <p:calendar id="restricted" value="#{ventaManagedBean.venta.fecha}" mindate="10/1/17" maxdate="10/1/18" />
-
-                    </h:panelGrid>
-
-                    <br></br>
-                    <p:commandButton value="registrar" actionListener="#{ventaManagedBean.crearVenta()}"/>
-                </h:form>
+                    
+                    <center>
+                    
+                    <p:commandButton id="registar" value="Registrar" actionListener="#{ventaManagedBean.registrarVentas()}"/>
+                    </center>
+                    
+               
+            </h:form>
+                
                 </center>
         </f:view>
 
-
-            
     </h:body>
 </html>
 

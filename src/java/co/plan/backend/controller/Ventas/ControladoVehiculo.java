@@ -1,8 +1,6 @@
 package co.plan.backend.controller.Ventas;
 
 
-
-
 import co.plan.backend.entities.Vehiculo;
 import co.plan.backend.facade.VehiculoFacade;
 import java.io.Serializable;
@@ -14,7 +12,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.SelectItem;
+
 import javax.faces.view.ViewScoped;
 //import com.util.JsfUtil;
 
@@ -24,22 +22,22 @@ import javax.faces.view.ViewScoped;
  */
 @ManagedBean(name = "controladorVehiculo")
 @ViewScoped
-public class ControladorVehiculo implements Serializable{
+public class ControladoVehiculo implements Serializable{
 
     /**
      * Creates a new instance of ContconcesionarioadorVehiculo
      */
-    public ControladorVehiculo() {
+    public ControladoVehiculo() {
     }
     
-    private Vehiculo vehiculo;
+    private Vehiculo vehiculos;
     
     @EJB
     private VehiculoFacade facadeVehiculo;
     
     @PostConstruct
     public void init(){
-       vehiculo = new Vehiculo();
+       vehiculos = new Vehiculo();
     }
     
     public List<Vehiculo> getAll(){
@@ -50,11 +48,11 @@ public class ControladorVehiculo implements Serializable{
     
     
      public Vehiculo getSelected() {
-       if (vehiculo == null) {
-           vehiculo = new Vehiculo();
+       if (vehiculos == null) {
+           vehiculos = new Vehiculo();
            int selectedItemIndex = -1;
        }
-       return vehiculo;
+       return vehiculos;
    }
      
   // public SelectItem[] getItemsAvailableSelectOne() {
@@ -72,7 +70,7 @@ public class ControladorVehiculo implements Serializable{
            if (value == null || value.length() == 0) {
                return null;
            }
-           ControladorVehiculo controlador = (ControladorVehiculo) facesContext.getApplication().getELResolver().
+           ControladoVehiculo controlador = (ControladoVehiculo) facesContext.getApplication().getELResolver().
                    getValue(facesContext.getELContext(), null, "controladorVehiculo");
            return controlador.getVehiculo(getKey(value));
            
@@ -105,16 +103,15 @@ public class ControladorVehiculo implements Serializable{
 
    }
 
-    public Vehiculo getVehiculo() {
-        return vehiculo;
+    public Vehiculo getVehiculos() {
+        return vehiculos;
     }
 
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
+    public void setVehiculos(Vehiculo vehiculos) {
+        this.vehiculos = vehiculos;
     }
 
-  
-
+   
   
     
 }

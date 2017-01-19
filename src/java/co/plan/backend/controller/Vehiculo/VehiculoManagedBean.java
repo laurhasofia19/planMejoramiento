@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package co.plan.backend.controller.Vehiculo;
 
 import co.plan.backend.entities.Vehiculo;
@@ -7,23 +11,30 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
+
+/**
+ *
+ * @author USUARIO
+ */
 @Named(value = "vehiculoManagedBean")
-@RequestScoped
+@RequestScoped 
 public class VehiculoManagedBean {
 
-   @EJB
+
+     @EJB
     private VehiculoFacade vehiculoEJB;
     
     private Vehiculo vehiculo;
     
-    public VehiculoManagedBean() {
+    
+ public VehiculoManagedBean() {
     }
-
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
@@ -32,7 +43,7 @@ public class VehiculoManagedBean {
         this.vehiculo = vehiculo;
     }
     
-     @PostConstruct
+    @PostConstruct
     public void init(){
     vehiculo = new Vehiculo();
     }
@@ -78,7 +89,7 @@ public class VehiculoManagedBean {
       
     }
 
-    public void modificarVehiculo() {
+    public void modificarV() {
         
          try {
           vehiculoEJB.edit(vehiculo);
