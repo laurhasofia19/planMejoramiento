@@ -79,6 +79,28 @@
                     </p:column>
 
                 </p:dataTable>
+                
+                 <h:commandLink id="excel">
+                    <p:graphicImage url="/resources/img/excel.png" />
+                    <p:dataExporter type="xls" target="tbl" fileName="Clientes" />
+                </h:commandLink>
+
+                
+                   <h:commandLink id="pdf">
+                    <p:graphicImage url="/resources/img/pdf.png" />
+                    <p:dataExporter type="pdf" target="tbl" fileName="Clientes" />
+                </h:commandLink>
+                
+                
+                <h:commandLink id="csv">
+        <p:graphicImage url="/resources/img/csv.png"  />
+        <p:dataExporter type="csv" target="tbl" fileName="Clientes" />
+    </h:commandLink>
+ 
+    <h:commandLink id="xml">
+        <p:graphicImage url="/resources/img/xml.png" />
+        <p:dataExporter type="xml" target="tbl" fileName="Clientes" />
+    </h:commandLink>
             </h:form>
 
             <p:dialog id="di" widgetVar="wdialogo" header="Modificar Cliente" modal="true"  resizable="false" closeOnEscape="true" draggable="false">

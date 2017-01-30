@@ -55,9 +55,9 @@
                              paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
                     <p:column headerText="Nit" id="nit" filterBy="#{item.nit}fi" filterMatchMode="contains">
-                        <center>
+                       
                             <h:outputText value="#{item.nit}"/>
-                        </center>
+                    
                     </p:column>
 
                     <p:column headerText="Nombre concesionario" id="nombre" filterBy="#{item.nombre}fi" filterMatchMode="contains">
@@ -66,9 +66,9 @@
                     </p:column>
                     
                     <p:column headerText="Telefono" id="telefono">
-                        <center>
+                      
                         <h:outputText value="#{item.tel}"/>
-                        </center>
+                        
                     </p:column>
                     
                     <p:column headerText="Direccion" id="direccion" >
@@ -90,7 +90,31 @@
                         </center>
                     </p:column>
                 </p:dataTable>
-            </h:form>
+          
+            
+             <h:commandLink id="excel">
+                    <p:graphicImage url="/resources/img/excel.png" />
+                    <p:dataExporter type="xls" target="tbl" fileName="Concesionario" />
+                </h:commandLink>
+
+                
+                   <h:commandLink id="pdf">
+                    <p:graphicImage url="/resources/img/pdf.png" />
+                    <p:dataExporter type="pdf" target="tbl" fileName="Concesionario" />
+                </h:commandLink>
+                
+                
+                <h:commandLink id="csv">
+        <p:graphicImage url="/resources/img/csv.png"  />
+        <p:dataExporter type="csv" target="tbl" fileName="Concesionario" />
+    </h:commandLink>
+ 
+    <h:commandLink id="xml">
+        <p:graphicImage url="/resources/img/xml.png" />
+        <p:dataExporter type="xml" target="tbl" fileName="Concesionario" />
+    </h:commandLink>
+                
+                  </h:form>
             
             <p:dialog id="di" widgetVar="wdialogo" header="Modificar Concesionario" modal="true"  resizable="false" closeOnEscape="true" draggable="false">
                 <h:form>

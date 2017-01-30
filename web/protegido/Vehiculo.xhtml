@@ -48,15 +48,15 @@
         <f:view>
 
             <h:form>
-                <h1><h:outputText value="List"/></h1>
+                <h1><h:outputText value="Vehiculo"/></h1>
                 <p:dataTable value="#{vehiculoManagedBean.vehiculos}" var="item" id="vehiculo" 
                               emptyMessage="No se encontraron registros"
                              paginator="true" rows="5" paginatorPosition="bottom"
                              paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
                     <p:column headerText="Codigo " id="id" filterBy="#{item.idvehiculo}fi" filterMatchMode="contains">
-                        <center>
+                       
                         <h:outputText value="#{item.idvehiculo}"/>
-                        </center>
+                       
                     </p:column>
 
                     <p:column headerText="Marca" id="marca" filterBy="#{item.marca}fi" filterMatchMode="contains">
@@ -68,10 +68,10 @@
                     </p:column>
 
                     <p:column headerText="Precio" id="precio" filterBy="#{item.precio}fi" filterMatchMode="contains">
-                        <center>
+                     
                         <h:outputText value="#{item.precio}"/>
                       
-                        </center>
+                       
                     </p:column>
 
                     <p:column headerText="concesionario" id="nit" filterBy="#{item.codConcesionario.nombre}fi" filterMatchMode="contains">
@@ -94,8 +94,31 @@
                     
                 </p:dataTable>
                 
+                <h:commandLink id="excel">
+                    <p:graphicImage url="/resources/img/excel.png" />
+                    <p:dataExporter type="xls" target="vehiculo" fileName="vehiculo" />
+                </h:commandLink>
+
+                
+                   <h:commandLink id="pdf">
+                    <p:graphicImage url="/resources/img/pdf.png" />
+                    <p:dataExporter type="pdf" target="vehiculo" fileName="vehiculo" />
+                </h:commandLink>
+                
+                
+                <h:commandLink id="csv">
+        <p:graphicImage url="/resources/img/csv.png"  />
+        <p:dataExporter type="csv" target="vehiculo" fileName="vehicullo" />
+    </h:commandLink>
+ 
+    <h:commandLink id="xml">
+        <p:graphicImage url="/resources/img/xml.png" />
+        <p:dataExporter type="xml" target="vehiculo" fileName="vehiculo" />
+    </h:commandLink>
             </h:form>
-            
+        </f:view>
+
+                          
              <p:dialog id="vehiculo" widgetVar="wdialogo" header="Modificar vehiculo" modal="true"  resizable="false" closeOnEscape="true" draggable="false">
                  <h:form>
                    
@@ -122,7 +145,7 @@
                  
                  
              </p:dialog>
-        </f:view>
+     
 
     </h:body>
 </html>

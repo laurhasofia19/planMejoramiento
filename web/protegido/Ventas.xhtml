@@ -9,83 +9,110 @@
     </h:head>
     <h:body>
         <f:view>
-  <h:form>  
-            <p:growl id="messages"/>
+            <h:form>  
+                <p:growl id="messages"/>
 
-            <p:menubar>
-                <p:submenu label="Clientes" icon="ui-icon-check">
-                    <p:menuitem value="Lista Clientes" outcome="Clientes" />
-                    <p:separator />
-                    <p:menuitem value="Crear Cliente" outcome="crearCliente"/>
-                </p:submenu>
+                <p:menubar>
+                    <p:submenu label="Clientes" icon="ui-icon-check">
+                        <p:menuitem value="Lista Clientes" outcome="Clientes" />
+                        <p:separator />
+                        <p:menuitem value="Crear Cliente" outcome="crearCliente"/>
+                    </p:submenu>
 
-                <p:submenu label="Concesionarios" icon="ui-icon-car">
-            <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
-            <p:separator />
-            <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
-          </p:submenu>
-        
-          <p:submenu label="Vehiculos" icon="ui-icon-car">
-            <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
-            <p:separator />
-            <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
-          </p:submenu>
+                    <p:submenu label="Concesionarios" icon="ui-icon-car">
+                        <p:menuitem value="Lista Concesionarios" outcome="Concesionario" />
+                        <p:separator />
+                        <p:menuitem value="Crear Concesionario" outcome="crearConcesionario"/>
+                    </p:submenu>
 
-                 <p:submenu label="Ventas" icon="ui-icon-car">
-            <p:menuitem value="Lista Ventas" outcome="Ventas" />
-            <p:separator />
-            <p:menuitem value="Crear Venta" outcome="crearVenta"/>
-          </p:submenu>
+                    <p:submenu label="Vehiculos" icon="ui-icon-car">
+                        <p:menuitem value="Lista Vehiculos" outcome="Vehiculo" />
+                        <p:separator />
+                        <p:menuitem value="Crear Vehiculo" outcome="crearVehiculo"/>
+                    </p:submenu>
+
+                    <p:submenu label="Ventas" icon="ui-icon-car">
+                        <p:menuitem value="Lista Ventas" outcome="Ventas" />
+                        <p:separator />
+                        <p:menuitem value="Crear Venta" outcome="crearVenta"/>
+                    </p:submenu>
 
 
-                <f:facet name="options">
+                    <f:facet name="options">
 
-                    <p:commandButton actionListener="#{loginContolador.cerrarSesion()}" value="Salir" action="/index?faces-redirect" icon="ui-icon-exit" />
-                </f:facet>
+                        <p:commandButton actionListener="#{loginContolador.cerrarSesion()}" value="Salir" action="/index?faces-redirect" icon="ui-icon-exit" />
+                    </f:facet>
 
-            </p:menubar>
-        </h:form>   
+                </p:menubar>
+            </h:form>   
 
             <h:form>
-                <h1><h:outputText value="List"/></h1>
-                <p:dataTable value="#{ventaManagedBean.ventass}" var="item" id="venta" 
-                              emptyMessage="No se encontraron registros"
+
+
+                <h1><h:outputText value="VENTAS"/></h1>
+
+
+                <p:dataTable id="tbl"  value="#{ventaManagedBean.ventass}" var="item" 
+                             emptyMessage="No se encontraron registros"
                              paginator="true" rows="5" paginatorPosition="bottom"
-                             paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-                    
-                    <p:column headerText="Codigo " id="id" filterBy="#{item.idVenta}fi" filterMatchMode="contains">
-                        <center>
-                        <h:outputText value="#{item.idVenta}"/>
+                             paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} " >
+
+
+                    <p:column headerText="Codigo " id="id" filterBy="#{item.idVenta}fi" filterMatchMode="contains" exportable="false">
+                        <center >
+                            <h:outputText value="#{item.idVenta}"/>
                         </center>
                     </p:column>
-                    
+
                     <p:column headerText="Cliente " id="cliente" filterBy="#{item.idCliente.nombre}fi" filterMatchMode="contains">
-                       
+
                         <h:outputText value="#{item.idCliente.nombre}"/>
                     </p:column>
-                    
-                    
+
+
                     <p:column headerText="Vehiculo " id="vehiculo" filterBy="#{item.idVehiculo.marca}fi" filterMatchMode="contains">
-                        
+
                         <h:outputText value="#{item.idVehiculo.marca}"/>
                     </p:column>
-                    
+
                     <p:column headerText="Fecha " id="fecha" filterBy="#{item.fecha}fi" filterMatchMode="contains">
-                        <center>
+
                         <h:outputText value="#{item.fecha}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        </center>
+
                     </p:column>
-                    
-                     <p:column  exportable="false" width="10%">
+
+                    <p:column  exportable="false" width="10%" >
                         <center>
                             <p:commandButton  styleClass="ui-confirmdialog-no" 
-                                              icon="ui-icon-trash" action="#{ventaManagedBean.eliminarVentas(item)}"  update="venta" />  
+                                              icon="ui-icon-trash" action="#{ventaManagedBean.eliminarVentas(item)}"  update="tbl" />  
                         </center>
                     </p:column >
-                   
+
                 </p:dataTable>
+
+                <h:commandLink id="excel">
+                    <p:graphicImage url="/resources/img/excel.png" />
+                    <p:dataExporter type="xls" target="tbl" fileName="ventas" />
+                </h:commandLink>
+
+                
+                   <h:commandLink id="pdf">
+                    <p:graphicImage url="/resources/img/pdf.png" />
+                    <p:dataExporter type="pdf" target="tbl" fileName="ventas" />
+                </h:commandLink>
+                
+                
+                <h:commandLink id="csv">
+        <p:graphicImage url="/resources/img/csv.png"  />
+        <p:dataExporter type="csv" target="tbl" fileName="ventas" />
+    </h:commandLink>
+ 
+    <h:commandLink id="xml">
+        <p:graphicImage url="/resources/img/xml.png" />
+        <p:dataExporter type="xml" target="tbl" fileName="ventas" />
+    </h:commandLink>
             </h:form>
         </f:view>
 
